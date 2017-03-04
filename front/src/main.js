@@ -10,7 +10,7 @@ Vue.use(Auth)
 
 Vue.http.options.root = 'http://guestbook.ru'
 Vue.http.interceptors.push((request, next) => { request.headers.set('Authorization', 'Bearer ' + Vue.auth.getToken()) ,next() })
-Vue.http.interceptors.push((request, next) => { request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken) ,next() })
+
 
 Router.beforeEach(
      (to, from, next) => {
