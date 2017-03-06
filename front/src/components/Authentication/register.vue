@@ -21,7 +21,7 @@
   
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" @click="register" class="btn btn-default">Register</button>
+      <button type="submit" @click.prevent="signup" class="btn btn-default">Register</button>
     </div>
   </div>
   
@@ -39,30 +39,19 @@
       },
 
      methods:{
-            register () {
+          signup () {
+              this.$http.post('api/signup',
+              {name: this.name, email: this.email, password: this.password},{headers: {'X-CSRF-TOKEN': 'Laravel.csrfToken'}})
+              .then(
+                  (response) => console.log(response)  
+                )
+              .catch(
+                  (error) => console.log(error)
+                );
 
-            
-        
-          Vue.http.interceptors.push((request, next) => {
-    request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken)
-
-    ,next()
-}),
-          
-         
-
-        this.$http.get("api/register/create")
-        .then(response => {
-           console.log(response.data)
-
-          //this.$router.push('/feed')
-        })
-      }
+          }
       }
 
      }
 </script>
 
-<style>
-
-</style>
